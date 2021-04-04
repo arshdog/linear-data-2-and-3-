@@ -1,0 +1,58 @@
+    def displayer(self, node, name):
+        if node is None:
+            print(name + ": None")
+        else:
+            print(name + ":" + node.data)
+
+    # reverse a node iteratively method 
+
+    def reverse_iterative(self):
+        
+        # keep track of the previous node and setting cur to head
+        prev = None 
+        cur = self.head
+        
+        # this while loop checks that when current node is none 
+        while cur:
+
+            # creating a temp variable and pointing it reversed
+            nxt = cur.next
+            
+            # and now setting that temp variable pointed to the left variable
+            cur.next = prev
+            
+            prev = cur 
+            cur = nxt
+
+            self.displayer(prev, "PREV")
+            self.displayer(cur, "CUR")
+            self.displayer(nxt, "NXT")
+            print("\n")
+
+        #updating head with prev node
+        self.head = prev
+
+    # recursive version of reversing nodes
+
+    def reverse_recursive(self):
+
+        #this checks if that the current node is none it will go to the previous node 
+        def _reverse_recursive(cur, prev):
+            
+            # basically if we reached the end of the list 
+            if not cur:
+                
+                # return the previous node ^^^ kind of like the while statement in the iterative version 
+                return prev
+
+            nxt = cur.next
+            cur.next = prev
+            prev = cur 
+            cur = nxt 
+            return _reverse_recursive(cur, prev)
+
+        #calling function for the head pointer and updating the state of current and prev within the recursive, rather than using the dsiplay method to keep printing the updated version 
+
+        self.head = _reverse_recursive(cur=self.head, prev=None)
+
+        print('\n')
